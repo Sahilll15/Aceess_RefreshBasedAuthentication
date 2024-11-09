@@ -4,6 +4,7 @@ import './App.css';
 import Login from './Login';
 import Dashboard from './Dashboard';
 import { AuthContext } from './AuthContext';
+import Register from './Register';
 
 function App() {
   const { accessToken } = React.useContext(AuthContext);
@@ -13,6 +14,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route 
             path="/dashboard" 
             element={accessToken ? <Dashboard /> : <Navigate to="/login" />}

@@ -4,22 +4,24 @@ import { redirect } from 'react-router-dom';
 
 export const AuthContext = createContext();
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000/api';
+
 export const AuthProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState(null);
 
   const login = async (username, password) => {
-    const response = await axios.post('http://localhost:4000/api/login', { username, password }, { withCredentials: true });
+    const response = await axios.post(`${API_BASE_URL}/login`, { username, password }, { withCredentials: true });
     setAccessToken(response.data.accessToken);
   };
 
   const logout = async () => {
-    await axios.post('http://localhost:4000/api/logout', {}, { withCredentials: true });
+    await axios.post(`${API_BASE_URL}/logout`, {}, { withCredentials: true });
     setAccessToken(null);
   };
 
   const refreshAccessToken = async () => {
     try {
-      const response = await axios.post('http://localhost:4000/api/refresh-token', {}, { withCredentials: true });
+      const response = await axios.post(`${API_BASE_URL}/refresh-token`, {}, { withCredentials: true });
       setAccessToken(response.data.accessToken);
       return response.data.accessToken;
     } catch (err) {
