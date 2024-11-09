@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000/api';
+
 const containerStyle = {
   display: 'flex',
   flexDirection: 'column',
@@ -87,7 +89,7 @@ function Register() {
     }
 
     try {
-      await axios.post('http://localhost:4000/api/register', {
+      await axios.post(`${API_BASE_URL}/register`, {
         username,
         password
       });
